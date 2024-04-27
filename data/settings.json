@@ -16,7 +16,7 @@
 	},
 	"discord":
 	{
-		"token": "123",
+		"token": "",
 		"channel": "mohrs-matchmaker"
 	},
 	"show_client_connect": true,
