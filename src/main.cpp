@@ -14,17 +14,20 @@
 #include <theater/client.h>
 #include <webserver/client.h>
 #include <service/file_system.h>
+#include <service/discord.h>
 
 // Globals
-MoHRS::Matchmaker*      g_matchmaker;
+MoHRS::Matchmaker*           g_matchmaker;
 
-Server*                 g_theater_server;
-Server*                 g_webserver_server;
+Server*                      g_theater_server;
+Server*                      g_webserver_server;
 
-Json::Value             g_settings;
-std::shared_mutex       g_settings_mutex;
+class Service::File_System*  g_file_system;
+class Service::Discord*      g_discord;
 
-Service::File_System*   g_file_system;
+// Settings
+Json::Value                  g_settings;
+std::shared_mutex            g_settings_mutex;
 
 void load_settings()
 {
@@ -50,8 +53,11 @@ void load_settings()
 void start_theater_server()
 {
 	g_matchmaker = new MoHRS::Matchmaker();
+	g_theater_server = new Server(Server::Type::Theater);
 
-	g_theater_server = new Server(Server::Type::Theater);	
+	// Wait till discord has a chance to start
+	std::this_thread::sleep_for(std::chrono::seconds(1));
+
 	g_theater_server->Listen();
 }
 
@@ -63,7 +69,7 @@ void start_webserver_server()
 
 void start_file_system()
 {
-	g_file_system = new Service::File_System();
+	g_file_system = new class Service::File_System();
 	
 	// Load "data/gamescripts" files in memory
 	for (const auto& entry : std::filesystem::recursive_directory_iterator("../data"))
@@ -75,7 +81,7 @@ void start_file_system()
         }
     }
 	
-	Logger::info("Load all files in memory.", Service::FileSystem);
+	Logger::info("Load all files in memory.", Service::Type::File_System);
 	
 	// Example code how to use
 	/*
@@ -90,6 +96,12 @@ void start_file_system()
 	
 	g_file_system->UnLoadAll();
 	*/
+}
+
+void start_discord()
+{
+	g_discord = new class Service::Discord();
+	g_discord->Start();
 }
 
 void signal_callback(int signum)
@@ -133,12 +145,14 @@ int main(int argc, char const* argv[])
 	std::thread t_webserver(&start_webserver_server);
 	std::thread t_webserver_heartbeat(&Webserver::Client::Heartbeat);
 	std::thread t_file_system(&start_file_system);
+	std::thread t_discord(&start_discord);
 
 	t_theater.detach();
 	t_theater_heartbeat.detach();
 	t_webserver.detach();
 	t_webserver_heartbeat.detach();
 	t_file_system.detach();
+	t_discord.detach();
 
 	// Sleep ZZZZZZzzzzzZZZZZ
 	while(true)

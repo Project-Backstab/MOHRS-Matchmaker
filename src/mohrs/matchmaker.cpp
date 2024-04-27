@@ -1,5 +1,8 @@
-#include <mohrs/matchmaker.h>
+#include <globals.h>
 #include <mohrs/game.h>
+#include <service/discord.h>
+
+#include <mohrs/matchmaker.h>
 
 MoHRS::Matchmaker::Matchmaker()
 {
@@ -47,6 +50,9 @@ bool MoHRS::Matchmaker::createGame(const Theater::Client& client, const Theater:
 	{
 		return false;
 	}
+
+	// Send discord message
+	g_discord->Send("Player \"" + game.GetHostPlayer() + "\" created server called \"" + game.GetName() + "\" in region \"" + game.GetRegionString() + "\"");
 
 	return true;
 }
@@ -101,6 +107,9 @@ bool MoHRS::Matchmaker::removeGame(const std::string& address)
 	{
 		if(game_it->GetTheaterSession() == address)
 		{
+			// Send discord message
+			g_discord->Send("Player \"" + game_it->GetHostPlayer() + "\" closed server called \"" + game_it->GetName() + "\" in region \"" + game_it->GetRegionString() + "\"");
+
 			// Remove the game server out of the list
 			this->_games.erase(game_it);
 

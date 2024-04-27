@@ -36,6 +36,7 @@ namespace MoHRS
 			std::string    GetIp() const             { return this->_ip;              }
 			std::string    GetName() const           { return this->_name;            }
 			MoHRS::Regions GetRegion() const         { return this->_region;          }
+			std::string    GetRegionString() const;
 			uint8_t        GetNumPlayers() const     { return this->_num_players;     }
 			uint8_t        GetMaxPlayers() const     { return this->_max_players;     }
 			std::string    GetHostPlayer() const     { return this->_host_player;     }

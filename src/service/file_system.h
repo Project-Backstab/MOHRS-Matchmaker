@@ -3,6 +3,7 @@
 
 #include <string>
 #include <map>
+#include <mutex>
 
 namespace Service
 {
@@ -12,8 +13,8 @@ namespace Service
 	class File_System
 	{
 		private:
-			std::map<std::string, std::string> _files;  /**< File paths and their data. */
-    		mutable std::mutex                         _mutex;  /**< Mutex for thread safety. */
+			std::map<std::string, std::string>  _files;  /**< File paths and their data. */
+			mutable std::mutex                  _mutex;  /**< Mutex for thread safety. */
 		
 		public:
 			File_System();

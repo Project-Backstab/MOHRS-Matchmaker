@@ -6,8 +6,11 @@ option(BUILD_STATIC_LIBS "Build jsoncpp_lib as a static library." ON)
 option(BUILD_OBJECT_LIBS "Build jsoncpp_lib as a object library." OFF)
 option (ATOMIZES_ENABLE_TESTS "Build tests for atomizes?" OFF)
 
+option(DPP_BUILD_TEST "Build the test program" OFF)
+
 add_subdirectory(third-party/atomizes)
 add_subdirectory(third-party/jsoncpp)
+add_subdirectory(third-party/DPP)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-deprecated-declarations")
@@ -34,6 +37,7 @@ add_executable(mohrs
 	src/webserver/client.cpp
 	src/webserver/api.cpp
 	src/service/file_system.cpp
+	src/service/discord.cpp
 	src/server.cpp
 	src/net/socket.cpp
 	src/util.cpp
@@ -42,7 +46,7 @@ add_executable(mohrs
 )
 
 include_directories(mohrs src)
-target_link_libraries(mohrs jsoncpp_static atomizes)
+target_link_libraries(mohrs jsoncpp_static atomizes dpp)
 
 ## Version
 execute_process(

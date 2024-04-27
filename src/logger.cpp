@@ -49,7 +49,8 @@ std::string Logger::ToString(enum Service::Type type)
 {
 	switch(type)
 	{
-		case Service::Type::FileSystem: return "[FileSystem]"; break;
+		case Service::Type::File_System: return "[FileSystem]"; break;
+		case Service::Type::Discord: return "[Discord]"; break;
 		case Service::Type::None: return ""; break;
 	}
 	

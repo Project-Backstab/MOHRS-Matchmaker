@@ -9,8 +9,9 @@ namespace Service
 	 */
 	enum Type
 	{
-		FileSystem, /**< File system service. */
-		None,       /**< No specific service type. */
+		File_System,  /**< File system service. */
+		Discord,      /**< Discord service. */
+		None,         /**< No specific service type. */
 	};
 }
 

@@ -65,6 +65,14 @@
         "cinttypes": "cpp",
         "typeinfo": "cpp",
         "variant": "cpp",
-        "filesystem": "cpp"
+        "csignal": "cpp",
+        "any": "cpp",
+        "charconv": "cpp",
+        "coroutine": "cpp",
+        "forward_list": "cpp",
+        "list": "cpp",
+        "future": "cpp",
+        "ranges": "cpp",
+        "valarray": "cpp"
     }
 }

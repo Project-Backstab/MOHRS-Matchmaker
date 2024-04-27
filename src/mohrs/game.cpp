@@ -12,6 +12,14 @@ MoHRS::Game::~Game()
 	
 }
 
+std::string MoHRS::Game::GetRegionString() const
+{
+	if(this->_region == MoHRS::Regions::Unknown)
+		return "Unknown";
+	
+	return MoHRS::RegionNames[this->_region];
+}
+
 bool MoHRS::Game::SetId(int id)
 {
 	this->_id = id;
