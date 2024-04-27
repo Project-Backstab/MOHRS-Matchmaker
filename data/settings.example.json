@@ -12,7 +12,7 @@
 		"connection_time_out": 2,
 		"show_requests": false,
 		"show_responses": false,
-		"password": "12345"
+		"password": ""
 	},
 	"discord":
 	{
