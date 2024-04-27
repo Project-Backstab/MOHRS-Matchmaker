@@ -1,5 +1,4 @@
 build/
-third-party/
 data/log/
 
 src/version.h
