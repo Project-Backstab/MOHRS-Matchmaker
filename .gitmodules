@@ -4,3 +4,6 @@
 [submodule "third-party/atomizes"]
 	path = third-party/atomizes
 	url = https://github.com/tinfoilboy/atomizes.git
+[submodule "third-party/DPP"]
+	path = third-party/DPP
+	url = https://github.com/brainboxdotcc/DPP.git
