@@ -1,0 +1,13 @@
+[Unit]
+Description=MOHRS-Matchmaker
+After=multi-user.target
+
+[Service]
+Type=simple
+Restart=always
+ExecStart=/var/www/MOHRS-Matchmaker-release/bin/mohrs
+WorkingDirectory=/var/www/MOHRS-Matchmaker-release/bin
+User=backend
+
+[Install]
+WantedBy=multi-user.target
