@@ -4,7 +4,7 @@
 		"port": 14300,
 		"connection_time_out": 60,
 		"show_requests": true,
-		"show_responses": true,
+		"show_responses": true
 	},
 	"webserver":
 	{
