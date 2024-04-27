@@ -1,0 +1,24 @@
+{
+	"theater":
+	{
+		"port": 14300,
+		"connection_time_out": 60,
+		"show_requests": true,
+		"show_responses": true,
+	},
+	"webserver":
+	{
+		"port": 8080,
+		"connection_time_out": 2,
+		"show_requests": false,
+		"show_responses": false,
+		"password": "12345"
+	},
+	"discord":
+	{
+		"token": "",
+		"channel": "mohrs-matchmaker"
+	},
+	"show_client_connect": true,
+	"show_client_disconnect": true
+}
