@@ -67,13 +67,13 @@ cd MOHRS-Matchmaker-release/
 For development:
 ```
 cd MOHRS-Matchmaker/build
-./bin/mohrs
+./mohrs
 ```
 
 For development debugging:
 ```
 cd MOHRS-Matchmaker/build
-gdbserver --multi :2345 bin/mohrs
+gdbserver --multi :2345 mohrs
 ```
 
 ## Services

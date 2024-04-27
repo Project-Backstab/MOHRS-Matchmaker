@@ -93,7 +93,6 @@ add_custom_target(
 )
 
 ## Installation
-install(TARGETS mohrs DESTINATION bin)
 install(
 	DIRECTORY ${CMAKE_SOURCE_DIR}/data/
 	DESTINATION data
