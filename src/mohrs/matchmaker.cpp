@@ -40,7 +40,7 @@ bool MoHRS::Matchmaker::createGame(const Theater::Client& client, const Theater:
 			std::unique_lock<std::shared_mutex> guard(this->_mutex); // matchmaker lock (read/write)
 
 			// Generate new game id
-			int new_id = this->_games.back().GetId() + 1;
+			int new_id = (this->_games.size() > 0) ? this->_games.back().GetId() + 1 : 1;
 			game.SetId(new_id);
 
 			// Save new game
