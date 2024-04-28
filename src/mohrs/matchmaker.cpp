@@ -35,12 +35,13 @@ bool MoHRS::Matchmaker::createGame(const Theater::Client& client, const Theater:
 		// Set Player
 		player.SetName(host_player);
 		game.AddPlayer(player);
-
-		// Generate new game id
-		game.SetId(this->_genNewGameId());
 		
 		{
 			std::unique_lock<std::shared_mutex> guard(this->_mutex); // matchmaker lock (read/write)
+
+			// Generate new game id
+			int new_id = this->_games.back().GetId() + 1;
+			game.SetId(new_id);
 
 			// Save new game
 			this->_games.push_back(game);
@@ -134,7 +135,7 @@ bool MoHRS::Matchmaker::findGamesByRegion(MoHRS::Regions region, MoHRS::Games& g
 	return true;
 }
 
-bool MoHRS::Matchmaker::findFavoritesByGame(const Theater::Parameter& parameter, const MoHRS::Game& game, int& num_fav_games, int& num_fav_players)
+bool MoHRS::Matchmaker::findFavoritesByGame(const Theater::Parameter& parameter, const MoHRS::Game& game, int& num_fav_games, int& num_fav_players) const
 {
 	if(parameter.find("FAV-GAME") != parameter.end() && parameter.find("FAV-PLAYER") != parameter.end())
 	{
@@ -149,7 +150,7 @@ bool MoHRS::Matchmaker::findFavoritesByGame(const Theater::Parameter& parameter,
 	return true;
 }
 
-bool MoHRS::Matchmaker::findFavoritesByGames(const Theater::Parameter& parameter, const MoHRS::Games& games, int& num_fav_games, int& num_fav_players)
+bool MoHRS::Matchmaker::findFavoritesByGames(const Theater::Parameter& parameter, const MoHRS::Games& games, int& num_fav_games, int& num_fav_players) const
 {
 	if(parameter.find("FAV-GAME") != parameter.end() && parameter.find("FAV-PLAYER") != parameter.end())
 	{
@@ -168,19 +169,6 @@ bool MoHRS::Matchmaker::findFavoritesByGames(const Theater::Parameter& parameter
 }
 
 //	Private functions
-
-int MoHRS::Matchmaker::_genNewGameId() const
-{
-	int id = 1;
-
-	for(const Game game : this->_games)
-	{
-		if(id >= game.GetId())
-			id = game.GetId() + 1;
-	}
-
-	return id;
-}
 
 void MoHRS::Matchmaker::_checkFavoriteGame(const MoHRS::Game& game, const std::vector<std::string>& fav_games, int& num_fav_games) const
 {

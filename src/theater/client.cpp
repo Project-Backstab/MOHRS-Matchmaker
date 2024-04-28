@@ -10,7 +10,6 @@
 #include <logger.h>
 #include <server.h>
 #include <globals.h>
-#include <database.h>
 #include <util.h>
 #include <mohrs/region.h>
 #include <mohrs/game.h>
