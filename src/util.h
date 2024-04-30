@@ -115,8 +115,25 @@ namespace Util
 		std::string GetTimeZone();
 	}
 	
+	/**
+	 * @brief Adds quotation marks to the provided string.
+	 * @param value The string to add quotation marks to.
+	 * @return The string with quotation marks added.
+	 */
 	std::string addQuote(const std::string& value);
+
+	/**
+	 * @brief Removes quotation marks from the provided string.
+	 * @param value The string to remove quotation marks from.
+	 * @return The string with quotation marks removed.
+	 */
 	std::string removeQuote(const std::string& value);
+	
+	/**
+	 * @brief Splits a string containing favorite items into a vector of strings.
+	 * @param input The string containing favorite items.
+	 * @return A vector of strings containing the individual favorite items.
+	 */
 	std::vector<std::string> splitFavorite(const std::string& input);
 }
 

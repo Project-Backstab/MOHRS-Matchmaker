@@ -15,6 +15,9 @@ namespace MoHRS
 	class Matchmaker;
 }
 
+/**
+ * @brief Pointer to the global matchmaker instance.
+ */
 extern MoHRS::Matchmaker*           g_matchmaker;
 
 /**

@@ -9,6 +9,9 @@
 */
 namespace MoHRS 
 {
+	/**
+	 * @brief Enumerates different regions.
+	 */
 	enum class Regions : int8_t
 	{
 		Europe        = 1,  /**< America region code */
@@ -22,6 +25,10 @@ namespace MoHRS
 		Unknown       = -1, /**< Unknown region code */
 	};
 
+	/**
+	 * @brief Map containing region names.
+	 * @details This map associates each region enum value with its corresponding string name.
+	 */
 	extern std::map<Regions, std::string> RegionNames;
 }
 

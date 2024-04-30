@@ -13,11 +13,14 @@ namespace MoHRS
 
 	typedef std::vector<Player> Players;
 
+	/**
+     * @brief Represents a player in the game.
+     */
 	class Player
 	{
 		private:
-			std::string _name;
-			std::string _ticket;
+			std::string _name;    /**< The name of the player. */
+			std::string _ticket;  /**< The ticket associated with the player. */
 
 		public:
 			Player();

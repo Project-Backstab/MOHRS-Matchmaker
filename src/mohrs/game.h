@@ -15,18 +15,21 @@ namespace MoHRS
 
 	typedef std::vector<Game> Games;
 
+	/**
+	 * @brief Represents a game.
+	 */
 	class Game
 	{
 		private:
-			int            _id          = -1;
-			std::string    _ip          = "";
-			std::string    _name        = "";
-			MoHRS::Regions _region      = MoHRS::Regions::Unknown;
-			uint8_t        _num_players = 0;
-			uint8_t        _max_players = 8;
-			std::string    _host_player = "";
-			Players        _players;
-			std::string    _theater_session = "";
+			int            _id              = -1;                      /**< The ID of the game. */
+			std::string    _ip              = "";                      /**< The IP address of the game server. */
+			std::string    _name            = "";                      /**< The name of the game. */
+			MoHRS::Regions _region          = MoHRS::Regions::Unknown; /**< The region of the game. */
+			uint8_t        _num_players     = 0;                       /**< The number of players currently in the game. */
+			uint8_t        _max_players     = 8;                       /**< The maximum number of players allowed in the game. */
+			std::string    _host_player     = "";                      /**< The host player of the game. */
+			Players        _players;                                   /**< The players currently in the game. */
+			std::string    _theater_session = "";                      /**< The theater session associated with the game. */
 
 		public:
 			Game();

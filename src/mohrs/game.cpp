@@ -13,10 +13,7 @@ MoHRS::Game::~Game()
 }
 
 std::string MoHRS::Game::GetRegionString() const
-{
-	if(this->_region == MoHRS::Regions::Unknown)
-		return "Unknown";
-	
+{	
 	return MoHRS::RegionNames[this->_region];
 }
 
@@ -69,6 +66,8 @@ bool MoHRS::Game::SetRegion(int8_t int_region)
 		
 		return this->SetRegion(region);
 	}
+
+	return this->SetRegion(MoHRS::Regions::Unknown);
 }
 
 bool MoHRS::Game::SetRegion(const std::string& str_region)
