@@ -59,6 +59,7 @@ namespace Theater
 			void requestUGAM(const Theater::Parameter& parameter);
 			void requestRGAM(const Theater::Parameter& parameter);
 			void requestFILE(const Theater::Parameter& parameter);
+			void requestPING(const Theater::Parameter& parameter);
 
 		private:
 			/**

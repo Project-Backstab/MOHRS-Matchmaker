@@ -31,6 +31,7 @@ static std::map<std::string, RequestActionFunc> mRequestActions =
 	{ "UGAM",                           &Theater::Client::requestUGAM               },
 	{ "RGAM",                           &Theater::Client::requestRGAM               },
 	{ "FILE",                           &Theater::Client::requestFILE               },
+	{ "PING",                           &Theater::Client::requestPING               },
 };
 
 Theater::Client::Client(int socket, struct sockaddr_in address)
@@ -96,18 +97,24 @@ void Theater::Client::Send(const std::string& action, const std::string& data) c
 	std::copy(action.begin(), action.begin() + 4, response.begin());
 
 	// Set data size
-	uint32_t calc_size = Theater::HEADER_SIZE + data.size() + 1;
+	uint32_t calc_size = Theater::HEADER_SIZE;
 
+	if(data.size() > 0)
+	{
+		// Set data
+		response.insert(response.end(), data.begin(), data.end());
+
+		// End
+		response.push_back(0x00);
+
+		// fix calc size
+		calc_size += data.size() +  1;
+	}
+	
 	response[8] = (calc_size >> 24) & 0xFF;
 	response[9] = (calc_size >> 16) & 0xFF;
 	response[10] = (calc_size >> 8) & 0xFF;
 	response[11] = calc_size & 0xFF;
-
-	// Set data
-	response.insert(response.end(), data.begin(), data.end());
-
-	// End
-	response.push_back(0x00);
 
 	this->Net::Socket::Send(response);
 
@@ -118,26 +125,36 @@ void Theater::Client::Send(const std::string& action, const std::string& data) c
 
 void Theater::Client::onRequest(const std::vector<unsigned char>& request)
 {
-	if(request.size() <= Theater::HEADER_SIZE)
+	if(request.size() < Theater::HEADER_SIZE)
 		return;
 
 	std::string action(request.begin(), request.begin() + 4);
-	std::string data(request.begin() + Theater::HEADER_SIZE, request.end() - 1);
-	Parameter parameter = Theater::Client::GetParameter(data);
+	Parameter parameter;
 
+	// Check if byte 9 till 12 has the same length as the request
 	//uint32_t request_length = 0;
 	//request_length |= static_cast<uint32_t>(request[8]) << 24;
 	//request_length |= static_cast<uint32_t>(request[9]) << 16;
 	//request_length |= static_cast<uint32_t>(request[10]) << 8;
 	//request_length |= static_cast<uint32_t>(request[11]);
-
-	// Debug
+	
 	//Logger::debug("request_length = " + std::to_string(request_length));
 	//Logger::debug("request.size() = " + std::to_string(request.size()));
-	//Logger::debug("parameter = " + data);
-	//for (const auto& pair : parameter) {
-	//	Logger::debug("Key: " + pair.first + ", Value: " + pair.second);
-	//}
+
+	// Extract parameter
+	if(request.size() > Theater::HEADER_SIZE)
+	{
+		// We expect that the last byte of the request is 0x00.
+		std::string data(request.begin() + Theater::HEADER_SIZE, request.end() - 1);
+
+		// Convert data to parameters
+		parameter = Theater::Client::GetParameter(data);
+
+		//Logger::debug("data = " + data);
+		//for (const auto& pair : parameter) {
+		//	Logger::debug("Key: " + pair.first + ", Value: " + pair.second);
+		//}
+	}
 
 	auto it = mRequestActions.find(action);
 	if (it != mRequestActions.end())
@@ -330,6 +347,13 @@ void Theater::Client::requestRGAM(const Theater::Parameter& parameter)
 void Theater::Client::requestFILE(const Theater::Parameter& parameter)
 {
 	this->Disconnect();
+}
+
+void Theater::Client::requestPING(const Theater::Parameter& parameter)
+{
+	Theater::Parameter response;
+
+	this->Send("PONG", response);
 }
 
 // Private functions
