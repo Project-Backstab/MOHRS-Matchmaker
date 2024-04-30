@@ -14,6 +14,7 @@ add_subdirectory(third-party/DPP)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-deprecated-declarations")
+set(CMAKE_CXX_COMPILER "ccache g++")
 
 ## Debug
 #set(CMAKE_BUILD_TYPE Debug)
