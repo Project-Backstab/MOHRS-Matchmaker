@@ -177,8 +177,6 @@ void Theater::Client::requestCONN(const Theater::Parameter& parameter)
 		{"NUM-CHALLENGES", "0"},
 		{"IMPORTANT", "Elon_Musk_Wants_to_Embed_AI-on-a-Chip_Into_Every_Human_Brain"}
 	});
-
-	this->Send("CONN", "NUM-CHALLENGES=0");
 }
 
 void Theater::Client::requestUSER(const Theater::Parameter& parameter)
