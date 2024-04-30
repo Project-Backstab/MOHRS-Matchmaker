@@ -14,6 +14,7 @@
 #include <mohrs/region.h>
 #include <mohrs/game.h>
 #include <mohrs/matchmaker.h>
+#include <service/file_system.h>
 
 #include <theater/client.h>
 
@@ -344,7 +345,27 @@ void Theater::Client::requestRGAM(const Theater::Parameter& parameter)
 
 void Theater::Client::requestFILE(const Theater::Parameter& parameter)
 {
-	this->Disconnect();
+	if(parameter.find("TID") == parameter.end())
+	{
+		return;
+	}
+
+	std::string tid = parameter.at("TID");
+
+	this->Send("FILE", {
+		{ "TID", tid },
+		{ "TYPE", "moh3/tos/" },
+		{ "NUM-CHUNKS", "1" }
+	});
+
+	// Max is 2047 characters you can send in one transaction with FCHU.
+	std::string data;
+	g_file_system->GetFile("../data/eula.txt", data);
+	
+	this->Send("FCHU", {
+		{ "TID", tid },
+		{ "DATA", Util::addQuote(data) }
+	});
 }
 
 void Theater::Client::requestPING(const Theater::Parameter& parameter)
