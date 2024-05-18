@@ -30,7 +30,7 @@ void Logger::Initialize()
 		}
 	}
 
-	g_logger.open(path + "/bf2mc-" + Util::Time::GetNowDateTime("%Y%m%d-%H%M%S") + ".log", std::ios::app);
+	g_logger.open(path + "/mohrs-" + Util::Time::GetNowDateTime("%Y%m%d-%H%M%S") + ".log", std::ios::app);
 }
 
 std::string Logger::ToString(enum Server::Type type)
