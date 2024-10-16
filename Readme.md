@@ -25,6 +25,16 @@ git submodule update
 sudo apt-get install doxygen graphviz ccache
 ```
 
+## Config
+
+Copy the example config file.
+
+```
+cp data/settings.exmaple.json data/settings.json
+```
+
+Then change the discord token and channel to your needs and change the password for the webserver.
+
 ## Compile project
 
 ```
