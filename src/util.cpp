@@ -5,7 +5,6 @@
 #include <numeric>
 #include <random>
 #include <chrono>
-#include <mysql/mysql_time.h>
 
 #include <util.h>
 

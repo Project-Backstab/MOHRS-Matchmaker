@@ -2,7 +2,6 @@
 #include <signal.h>
 #include <thread>
 #include <fstream>
-#include <mysql/mysql.h>
 #include <filesystem>
 
 #include <version.h>

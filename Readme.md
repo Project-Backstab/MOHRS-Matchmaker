@@ -22,7 +22,7 @@ cd MOHRS-Matchmaker
 git submodule init
 git submodule update
 
-sudo apt-get install libmysqlclient-dev doxygen graphviz ccache
+sudo apt-get install doxygen graphviz ccache
 ```
 
 ## Compile project
