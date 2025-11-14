@@ -6,6 +6,7 @@ option(BUILD_STATIC_LIBS "Build jsoncpp_lib as a static library." ON)
 option(BUILD_OBJECT_LIBS "Build jsoncpp_lib as a object library." OFF)
 option (ATOMIZES_ENABLE_TESTS "Build tests for atomizes?" OFF)
 
+set(BUILD_SHARED_LIBS OFF CACHE BOOL "" FORCE)
 option(DPP_BUILD_TEST "Build the test program" OFF)
 
 add_subdirectory(third-party/atomizes)
@@ -94,6 +95,7 @@ add_custom_target(
 )
 
 ## Installation
+install(TARGETS mohrs DESTINATION bin)
 install(
 	DIRECTORY ${CMAKE_SOURCE_DIR}/data/
 	DESTINATION data
